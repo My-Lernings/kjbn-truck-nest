@@ -6,3 +6,4 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+// docker run --rm -p 3000:3000 nestjs-app

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { TruckService } from './truck.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TestDTO } from './dto/test.dto';
+import { BoundsDTO } from './dto/Bounds.dto';
 
 @Controller('truck')
 export class TruckController {
@@ -12,16 +13,17 @@ export class TruckController {
 
     }
 
-    @Get('/:lat/:lon')
-    getTruck(@Param('lat') lat: string, @Param('lon') lon: string) {
+    @Post('/getinbounds')
+    test(@Body() body: BoundsDTO) {
 
-        return this.truckService.getTruck(lat, lon);
+        return this.truckService.getWithinBounds(body);
     }
 
-    @Post('/test')
-    test(@Body() body: [TestDTO]) {
-        
-        return this.truckService.test(body);
+
+    @Get('/menu/:id')
+    getMenu(@Param('id') id: string): Object {
+        console.log(id)
+        return this.truckService.getMenu(id);
     }
 
 }

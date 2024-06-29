@@ -3,32 +3,53 @@ import { TruckModel } from './schemas/truck.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from "mongoose";
 import { TestDTO } from './dto/test.dto';
+import { BoundsDTO } from './dto/Bounds.dto';
+import menuMock from './mockdata/menu';
 
 @Injectable()
 export class TruckService {
+ 
     constructor(@InjectModel(TruckModel.name) private truckModel: Model<TruckModel | null>) { }
 
-    test(body: [TestDTO]) {
+
+
+
+    getMenu(id: string): Object {
+        return menuMock;
+    }
+    async getWithinBounds(body: BoundsDTO): Promise<TruckModel[]> {
+   
+
         try {
 
-            for (let index = 0; index < body.length; index++) {
-                const element = body[index];
-                this.truckModel.create({
-                    ...element,
+            return await this.truckModel.find(
+                {
                     location: {
-                        type: 'Point',
-                        coordinates: [parseFloat(element.longitude), parseFloat(element.latitude)]
+                        $geoWithin: {
+                            $box: [
+                                [body.minlon, body.minlat],
+                                [body.maxlon, body.maxlat]
+                            ],
+                        }
                     }
-                })
-            }
-        } catch (error) {
+                },
+                {},
+                {
+                    limit: 50
+                }
+            );
 
+
+        } catch (error) {
+            throw error
         }
+
     }
 
+   
 
 
-    async getTruck(lat: string, lon: string) {
+    async getTruck(lat: string, lon: string) : Promise<TruckModel[]> {
         try {
 
             return await this.truckModel.find(
@@ -39,13 +60,13 @@ export class TruckService {
                                 type: 'Point',
                                 coordinates: [parseFloat(lon), parseFloat(lat)]
                             },
-                            $maxDistance: 10000 // 10km
+                            $maxDistance: 50000 // 10km
                         }
                     }
                 },
                 {},
                 {
-                    limit: 10
+                    limit: 50
                 }
             );
 
