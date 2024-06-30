@@ -13,7 +13,23 @@ You can run this project with these commands
   npm install 
   npm run start:dev 
 ```
-    
+
+## API
+ - /truck/getinbounds
+   Method: POST
+   Body : {
+    minlat:0.0,
+    minlon:0.0,
+    maxlat:0.0,
+    maxlon:0.0
+   }
+
+ - /truck/menu/:id
+   Method: GET
+   url params: /truck/menu/123
+   -This endpoint is returning same mock data for every request
+
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
