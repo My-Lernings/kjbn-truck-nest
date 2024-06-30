@@ -15,7 +15,7 @@ export class TruckController {
 
     @Post('/getinbounds')
     test(@Body() body: BoundsDTO) {
-
+       
         return this.truckService.getWithinBounds(body);
     }
 

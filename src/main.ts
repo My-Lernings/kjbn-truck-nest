@@ -5,7 +5,7 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{cors: true});
   const corsOptions: CorsOptions = {
-    origin: [/^http:\/\/localhost:\d+$/],// Replace with your frontend URL
+    origin: [/^http:\/\/localhost:\d+$/,'https://66817564cd6edb088128686e--chic-froyo-63e35e.netlify.app/'],// Replace with your frontend URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Allow credentials like cookies
   };
