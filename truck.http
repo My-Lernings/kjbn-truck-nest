@@ -1,2 +1,4 @@
-POST https://192.168.1.5:3000/truck/getinbounds
+GET https://kjbn-truck-nest.onrender.com/truck/menu/3232
+ 
+
  
