@@ -8,17 +8,28 @@ import menuMock from './mockdata/menu';
 
 @Injectable()
 export class TruckService {
- 
+
     constructor(@InjectModel(TruckModel.name) private truckModel: Model<TruckModel | null>) { }
 
 
 
-
+    /**
+     * Retrieves the menu based on the provided ID.
+     *
+     * @param {string} id - The ID of the menu.
+     * @return {Object} The menu object.
+     */
     getMenu(id: string): Object {
         return menuMock;
     }
+    /**
+ * Retrieves a list of trucks within the specified geographical bounds.
+ *
+ * @param {BoundsDTO} body - The bounds of the geographical area to search within.
+ * @return {Promise<TruckModel[]>} A promise that resolves to an array of TruckModel objects within the specified bounds.
+ */
     async getWithinBounds(body: BoundsDTO): Promise<TruckModel[]> {
-   
+
 
         try {
 
@@ -46,10 +57,16 @@ export class TruckService {
 
     }
 
-   
 
 
-    async getTruck(lat: string, lon: string) : Promise<TruckModel[]> {
+    /**
+     * Retrieves a list of trucks within a specified radius from a given latitude and longitude.
+     *
+     * @param {string} lat - The latitude of the location.
+     * @param {string} lon - The longitude of the location.
+     * @return {Promise<TruckModel[]>} A promise that resolves to an array of TruckModel objects.
+     */
+    async getTruck(lat: string, lon: string): Promise<TruckModel[]> {
         try {
 
             return await this.truckModel.find(
